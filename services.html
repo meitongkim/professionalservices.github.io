@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mei Tong · Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sage: #9ab078;
+      --mist: #cfdfd8;
+      --lime: #89a36c;
+      --mist-deep: #b8cfc7;
+      --white: #ffffff;
+      --glass-bg: rgba(255,255,255,0.55);
+      --glass-border: rgba(255,255,255,0.75);
+      --glass-shadow: rgba(154,176,120,0.13);
+      --text-primary: #2d3a28;
+      --text-secondary: #5a6e53;
+      --text-muted: #8fa085;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--mist);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background mesh ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 10%, rgba(207,223,216,0.95) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 55% at 90% 80%, rgba(137,163,108,0.30) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(154,176,120,0.12) 0%, transparent 70%);
+      background-color: #d8e8e0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Subtle leaf grid texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(154,176,120,0.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 0;
+      margin-bottom: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--sage); }
+
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-pill);
+      padding: 7px 16px 7px 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .nav-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 0;
+      margin-bottom: 72px;
+      max-width: 600px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--lime);
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(42px, 7vw, 68px);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -1.5px;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .hero-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 440px;
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .tag-outline {
+      border: 1px solid var(--mist-deep);
+      color: var(--text-secondary);
+      background: transparent;
+    }
+    .tag-fill {
+      background: var(--sage);
+      color: white;
+      border: 1px solid transparent;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--mist-deep);
+    }
+
+    /* ── SERVICES GRID ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .service-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      box-shadow: 0 4px 20px var(--glass-shadow);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--sage), transparent);
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(154,176,120,0.18);
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 22px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .service-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .service-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* Featured / wide card */
+    .service-card.wide {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .service-card.wide .service-body { grid-column: 2; }
+
+    /* ── APPROACH STRIP ── */
+    .approach {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 40px 40px;
+      margin-bottom: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      gap: 32px;
+      align-items: center;
+      box-shadow: 0 4px 24px var(--glass-shadow);
+    }
+
+    .approach-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--mist-deep);
+      margin: auto;
+    }
+
+    .approach-item { text-align: center; }
+    .approach-item .num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 38px;
+      color: var(--sage);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .approach-item .num-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .approach-item .num-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .testimonial-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: 0 4px 20px var(--glass-shadow);
+      position: relative;
+    }
+
+    .quote-mark {
+      font-family: 'Instrument Serif', serif;
+      font-size: 48px;
+      line-height: 0.7;
+      color: var(--sage);
+      opacity: 0.5;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .testimonial-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .author-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--lime));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: white;
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .author-role {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      background: linear-gradient(135deg, var(--sage) 0%, var(--lime) 100%);
+      border-radius: var(--radius-lg);
+      padding: 52px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -5%;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      pointer-events: none;
+    }
+    .cta-block::after {
+      content: '';
+      position: absolute;
+      bottom: -40%; left: 20%;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+
+    .cta-left { position: relative; z-index: 1; }
+
+    .cta-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 12px;
+    }
+
+    .cta-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 34px;
+      font-weight: 400;
+      color: white;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .cta-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+      max-width: 360px;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      position: relative;
+      z-index: 1;
+      background: white;
+      color: var(--lime);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      flex-shrink: 0;
+    }
+    .cta-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .cta-btn svg { width: 14px; height: 14px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 0 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    footer a:hover { color: var(--sage); }
+    footer .sep { opacity: 0.4; }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero          { animation: fadeUp 0.7s ease 0.05s both; }
+    .approach      { animation: fadeUp 0.7s ease 0.15s both; }
+    .services-grid { animation: fadeUp 0.7s ease 0.1s both; }
+    .testimonials  { animation: fadeUp 0.7s ease 0.2s both; }
+    .cta-block     { animation: fadeUp 0.7s ease 0.25s both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { flex-direction: column; gap: 14px; align-items: flex-start; }
+      .hero { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card.wide { grid-column: span 2; grid-template-columns: 1fr; }
+      .approach { grid-template-columns: 1fr; gap: 20px; }
+      .approach-divider { display: none; }
+      .testimonials { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; text-align: center; padding: 36px 28px; }
+      .cta-sub { max-width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.wide { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="https://meitongkim.github.io/">mei <span>❪美❫</span></a>
+    <div class="nav-pill">
+      <span class="nav-dot"></span>
+      Available for collaborations
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Professional Services</div>
+      <h1>Let's build<br/>something that<br/><em>matters.</em></h1>
+      <p class="hero-body">
+        I'm Mei Tong — founder of Youth for Sustainable Policy, a global movement across 10+ countries, and a marketer who believes the best campaigns start with something worth saying. Policy-informed. People-first. Marketing-powered.
+      </p>
+      <div class="hero-tags">
+        <span class="tag tag-fill">Remote · Singapore</span>
+        <span class="tag tag-outline">Consulting</span>
+        <span class="tag tag-outline">Speaking</span>
+        <span class="tag tag-outline">Creative Collab</span>
+        <span class="tag tag-outline">Contact for pricing</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="approach" style="margin-bottom:56px;">
+    <div class="approach-item">
+      <div class="num">10+</div>
+      <div class="num-label">Countries</div>
+      <div class="num-sub">YSP global reach</div>
+    </div>
+    <div class="approach-divider"></div>
+    <div class="approach-item">
+      <div class="num">20k</div>
+      <div class="num-label">Views</div>
+      <div class="num-sub">Campaigns delivered</div>
+    </div>
+    <div class="approach-divider"></div>
+    <div class="approach-item">
+      <div class="num">9</div>
+      <div class="num-label">Services</div>
+      <div class="num-sub">Strategy to story</div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <div class="section-label">What I offer</div>
+  <div class="services-grid">
+
+    <div class="service-card wide">
+      <span class="service-icon">✦</span>
+      <div class="service-body">
+        <div class="service-title">Brand Consulting</div>
+        <div class="service-desc">I help organisations reach young people authentically — building brands that mean something and tell stories that move. Youth-first strategy with a policy-informed lens.</div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">✍︎</span>
+      <div class="service-title">Copywriting</div>
+      <div class="service-desc">Words that don't just fill space. Sharp, intentional copy — web, campaigns, social.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">◎</span>
+      <div class="service-title">Content Marketing</div>
+      <div class="service-desc">Strategy-led content that builds audiences and earns trust over time.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">◇</span>
+      <div class="service-title">Ghostwriting</div>
+      <div class="service-desc">Your ideas. My words. Founder articles, thought leadership, and long-form pieces.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">⬡</span>
+      <div class="service-title">Business Consulting</div>
+      <div class="service-desc">Systems thinking from someone who has built — and broken — organisations across countries.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">↗</span>
+      <div class="service-title">Educational Consulting</div>
+      <div class="service-desc">Policy and pedagogy meet. Curriculum design, youth programme architecture, and advocacy.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">◉</span>
+      <div class="service-title">Public Speaking</div>
+      <div class="service-desc">Keynotes, panels, and youth summits on sustainability, leadership, and language.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">⬟</span>
+      <div class="service-title">Event Planning</div>
+      <div class="service-desc">Global youth events with intention — from concept to execution across time zones.</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">⊞</span>
+      <div class="service-title">Project Management</div>
+      <div class="service-desc">Structure for the scrappy. I build systems, break them, and decide which ones deserve to be rebuilt.</div>
+    </div>
+
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section-label">What people say</div>
+  <div class="testimonials">
+
+    <div class="testimonial-card">
+      <span class="quote-mark">"</span>
+      <p class="testimonial-text">Mei Tong consistently demonstrates exceptional leadership — her marketing instincts are highly commendable. She possesses a keen understanding of audience engagement and is able to present ideas in a persuasive and strategic manner.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">D</div>
+        <div>
+          <div class="author-name">Donovan Chow</div>
+          <div class="author-role">COO, Youth for Sustainable Policy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <span class="quote-mark">"</span>
+      <p class="testimonial-text">She balances open-minded and thoughtful leadership with the qualities of a supportive friend. Mei will be an irreplaceable addition to any organisation — you can be undoubtedly sure of the quality of her work and reliability.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">K</div>
+        <div>
+          <div class="author-name">Kateryna Khokhlova</div>
+          <div class="author-role">Research Manager, YSP</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <span class="quote-mark">"</span>
+      <p class="testimonial-text">Kim's management style stands out for its cooperative and inclusive approach — she fosters an environment where team members feel empowered. What truly sets her apart is her openness to unique and diverse ideas.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">H</div>
+        <div>
+          <div class="author-name">Harman Hunjan</div>
+          <div class="author-role">Director of Editorial, Social Issues Bubble</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <span class="quote-mark">"</span>
+      <p class="testimonial-text">She is well-versed in social media marketing and always takes initiative. If there is a topic or challenge she faces, she will first learn more about it and broaden her perspective before moving forward.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">G</div>
+        <div>
+          <div class="author-name">Gay Zulfikar</div>
+          <div class="author-role">Social Media Manager, YSP</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-left">
+      <div class="cta-eyebrow">Open to new projects</div>
+      <div class="cta-title">Let's talk about<br/>what you're building.</div>
+      <div class="cta-sub">Consulting, speaking, or creative collaborations. Remote or in-person, Singapore. Contact for pricing.</div>
+    </div>
+    <a class="cta-btn" href="mailto:meitongkimnyp@gmail.com">
+      Get in touch
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://meitongkim.github.io/">← Back to profile</a>
+    <span class="sep">·</span>
+    <a href="https://www.linkedin.com/in/mei-tong-kim-505544311/">LinkedIn</a>
+    <span class="sep">·</span>
+    <span>Singapore · 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
